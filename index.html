@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ControlCapital</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ========================= -->
+    <!-- INICIO -->
+    <!-- ========================= -->
+
+    <section id="inicio" class="pantalla activa">
+
+        <div class="header">
+            <h1>💰 ControlCapital</h1>
+            <p>Controla mejor el dinero de tu negocio</p>
+        </div>
+
+        <div class="contenido">
+
+            <div class="tarjeta bienvenida">
+
+                <div class="icono-grande">💵</div>
+
+                <h2>¡Bienvenido!</h2>
+
+                <p>
+                    Registra tu capital, ventas y gastos para saber
+                    cuánto dinero tienes realmente disponible.
+                </p>
+
+                <button onclick="mostrarPantalla('capital')">
+                    🚀 Comenzar
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- CAPITAL INICIAL -->
+    <!-- ========================= -->
+
+    <section id="capital" class="pantalla">
+
+        <div class="header">
+            <h1>💰 Capital inicial</h1>
+            <p>Ingresa el dinero con el que empieza tu negocio</p>
+        </div>
+
+        <div class="contenido">
+
+            <div class="tarjeta">
+
+                <label>Capital inicial</label>
+
+                <input
+                    type="number"
+                    id="capitalInput"
+                    placeholder="Ejemplo: 500"
+                    min="0"
+                >
+
+                <button onclick="guardarCapital()">
+                    💾 Guardar capital
+                </button>
+
+                <button
+                    class="boton-secundario"
+                    onclick="mostrarPantalla('inicio')"
+                >
+                    ← Volver
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- MENÚ PRINCIPAL -->
+    <!-- ========================= -->
+
+    <section id="menu" class="pantalla">
+
+        <div class="header">
+
+            <h1>💰 ControlCapital</h1>
+
+            <p>Administra tu negocio fácilmente</p>
+
+            <div class="dinero-superior">
+                Disponible:
+                <strong id="dineroDisponibleMenu">
+                    S/ 0.00
+                </strong>
+            </div>
+
+            <div class="puntos">
+                ⭐ Puntos Capital:
+                <strong id="puntosMenu">0</strong>
+            </div>
+
+        </div>
+
+        <div class="contenido">
+
+            <div class="grid-menu">
+
+                <button onclick="mostrarPantalla('ventas')">
+                    🛒
+                    <span>Registrar venta</span>
+                </button>
+
+                <button onclick="mostrarPantalla('gastosNegocio')">
+                    🏪
+                    <span>Gasto del negocio</span>
+                </button>
+
+                <button onclick="mostrarPantalla('gastosCasa')">
+                    🏠
+                    <span>Gasto de casa</span>
+                </button>
+
+                <button onclick="mostrarPantalla('misiones')">
+                    🎯
+                    <span>Misiones</span>
+                </button>
+
+                <button onclick="mostrarPantalla('recompensas')">
+                    🏆
+                    <span>Recompensas</span>
+                </button>
+
+                <button onclick="mostrarResumen()">
+                    📊
+                    <span>Resumen</span>
+                </button>
+
+                <button onclick="mostrarHistorial()">
+                    👥
+                    <span>Historial de usuarios</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- VENTAS -->
+    <!-- ========================= -->
+
+    <section id="ventas" class="pantalla">
+
+        <div class="header">
+            <h1>🛒 Registrar venta</h1>
+            <p>Registra los productos que vendiste</p>
+        </div>
+
+        <div class="contenido">
+
+            <div class="tarjeta">
+
+                <label>Producto</label>
+
+                <input
+                    type="text"
+                    id="productoVenta"
+                    placeholder="Ejemplo: Gaseosa"
+                >
+
+                <label>Precio</label>
+
+                <input
+                    type="number"
+                    id="precioVenta"
+                    placeholder="Ejemplo: 3.50"
+                    min="0"
+                    step="0.01"
+                >
+
+                <label>Cantidad</label>
+
+                <input
+                    type="number"
+                    id="cantidadVenta"
+                    placeholder="Ejemplo: 2"
+                    min="1"
+                >
+
+                <button onclick="registrarVenta()">
+                    ✅ Registrar venta
+                </button>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>📋 Ventas registradas</h3>
+
+                <div id="listaVentas" class="lista">
+                    <p class="vacio">
+                        Todavía no hay ventas.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <button
+                class="boton-secundario"
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- GASTOS DEL NEGOCIO -->
+    <!-- ========================= -->
+
+    <section id="gastosNegocio" class="pantalla">
+
+        <div class="header">
+            <h1>🏪 Gastos del negocio</h1>
+            <p>Registra gastos necesarios para tu negocio</p>
+        </div>
+
+        <div class="contenido">
+
+            <div class="tarjeta">
+
+                <label>Descripción</label>
+
+                <input
+                    type="text"
+                    id="descripcionNegocio"
+                    placeholder="Ejemplo: Compra de gaseosas"
+                >
+
+                <label>Monto</label>
+
+                <input
+                    type="number"
+                    id="montoNegocio"
+                    placeholder="Ejemplo: 50"
+                    min="0"
+                    step="0.01"
+                >
+
+                <button onclick="registrarGastoNegocio()">
+                    💾 Registrar gasto
+                </button>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>📋 Gastos registrados</h3>
+
+                <div id="listaGastosNegocio" class="lista">
+
+                    <p class="vacio">
+                        Todavía no hay gastos.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="boton-secundario"
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- GASTOS DE CASA -->
+    <!-- ========================= -->
+
+    <section id="gastosCasa" class="pantalla">
+
+        <div class="header">
+            <h1>🏠 Gastos de casa</h1>
+            <p>Separa los gastos personales del negocio</p>
+        </div>
+
+        <div class="contenido">
+
+            <div class="alerta">
+
+                ⚠️ Recuerda: usar dinero del negocio para gastos
+                personales puede reducir tu capital.
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <label>Descripción</label>
+
+                <input
+                    type="text"
+                    id="descripcionCasa"
+                    placeholder="Ejemplo: Comida"
+                >
+
+                <label>Monto</label>
+
+                <input
+                    type="number"
+                    id="montoCasa"
+                    placeholder="Ejemplo: 20"
+                    min="0"
+                    step="0.01"
+                >
+
+                <button onclick="registrarGastoCasa()">
+                    💾 Registrar gasto
+                </button>
+
+            </div>
+
+
+            <div class="tarjeta">
+
+                <h3>📋 Gastos de casa</h3>
+
+                <div id="listaGastosCasa" class="lista">
+
+                    <p class="vacio">
+                        Todavía no hay gastos.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="boton-secundario"
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- MISIONES -->
+    <!-- ========================= -->
+
+    <section id="misiones" class="pantalla">
+
+        <div class="header">
+
+            <h1>🎯 Misiones</h1>
+
+            <p>
+                Completa actividades y consigue puntos
+            </p>
+
+            <div class="puntos">
+                ⭐ Puntos:
+                <strong id="puntosMisiones">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="contenido">
+
+
+            <div class="mision" id="mision1">
+
+                <h3>📚 Aprende sobre tu capital</h3>
+
+                <p>
+                    Aprende por qué es importante separar
+                    el dinero del negocio del dinero del hogar.
+                </p>
+
+                <strong>+50 puntos</strong>
+
+                <button onclick="abrirGuiaCapital()">
+                    📖 Leer guía
+                </button>
+
+                <button
+                    id="botonMision1"
+                    class="boton-secundario"
+                    onclick="completarMision(1)"
+                    disabled
+                >
+                    🔒 Lee la guía primero
+                </button>
+
+            </div>
+
+
+            <div class="mision" id="mision2">
+
+                <h3>💰 Registra tu capital</h3>
+
+                <p>
+                    Guarda tu capital inicial.
+                </p>
+
+                <strong>+30 puntos</strong>
+
+                <button onclick="mostrarPantalla('capital')">
+                    Ir a registrar capital
+                </button>
+
+            </div>
+
+
+            <div class="mision" id="mision3">
+
+                <h3>🛒 Registra una venta</h3>
+
+                <p>
+                    Registra tu primera venta.
+                </p>
+
+                <strong>+40 puntos</strong>
+
+                <button onclick="mostrarPantalla('ventas')">
+                    Ir a ventas
+                </button>
+
+            </div>
+
+
+            <div class="mision" id="mision4">
+
+                <h3>🏠 Separa tus gastos</h3>
+
+                <p>
+                    Registra un gasto y aprende a separar
+                    el dinero personal del negocio.
+                </p>
+
+                <strong>+50 puntos</strong>
+
+                <button onclick="mostrarPantalla('gastosCasa')">
+                    Registrar gasto
+                </button>
+
+            </div>
+
+
+            <div class="mision" id="mision5">
+
+                <h3>📊 Revisa tu resumen</h3>
+
+                <p>
+                    Revisa el estado actual de tu negocio.
+                </p>
+
+                <strong>+40 puntos</strong>
+
+                <button onclick="mostrarResumen()">
+                    Ver resumen
+                </button>
+
+            </div>
+
+
+            <button
+                class="boton-secundario"
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- RECOMPENSAS -->
+    <!-- ========================= -->
+
+    <section id="recompensas" class="pantalla">
+
+        <div class="header">
+
+            <h1>🏆 Recompensas</h1>
+
+            <p>Canjea tus Puntos Capital</p>
+
+            <div class="puntos">
+                ⭐ Puntos:
+                <strong id="puntosRecompensas">0</strong>
+            </div>
+
+        </div>
+
+
+        <div class="contenido">
+
+            <div class="recompensa">
+
+                <div class="emoji-recompensa">
+                    🥉
+                </div>
+
+                <h3>Insignia Principiante</h3>
+
+                <p>100 puntos</p>
+
+                <button
+                    onclick="canjearRecompensa(
+                        100,
+                        'Insignia Principiante'
+                    )"
+                >
+                    Canjear
+                </button>
+
+            </div>
+
+
+            <div class="recompensa">
+
+                <div class="emoji-recompensa">
+                    🥈
+                </div>
+
+                <h3>Buen Administrador</h3>
+
+                <p>250 puntos</p>
+
+                <button
+                    onclick="canjearRecompensa(
+                        250,
+                        'Buen Administrador'
+                    )"
+                >
+                    Canjear
+                </button>
+
+            </div>
+
+
+            <div class="recompensa">
+
+                <div class="emoji-recompensa">
+                    🥇
+                </div>
+
+                <h3>Experto en Capital</h3>
+
+                <p>500 puntos</p>
+
+                <button
+                    onclick="canjearRecompensa(
+                        500,
+                        'Experto en Capital'
+                    )"
+                >
+                    Canjear
+                </button>
+
+            </div>
+
+
+            <div class="recompensa">
+
+                <div class="emoji-recompensa">
+                    🎮
+                </div>
+
+                <h3>300 Robux</h3>
+
+                <p>
+                    Recompensa de ejemplo para el proyecto escolar.
+                </p>
+
+                <p><strong>1000 puntos</strong></p>
+
+                <button
+                    onclick="canjearRecompensa(
+                        1000,
+                        '300 Robux'
+                    )"
+                >
+                    Canjear
+                </button>
+
+            </div>
+
+
+            <button
+                class="boton-secundario"
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- RESUMEN -->
+    <!-- ========================= -->
+
+    <section id="resumen" class="pantalla">
+
+        <div class="header">
+
+            <h1>📊 Resumen</h1>
+
+            <p>
+                Estado actual de tu negocio
+            </p>
+
+        </div>
+
+
+        <div class="contenido">
+
+            <div class="resumen-grid">
+
+                <div class="resumen-item">
+
+                    <span>💰 Capital inicial</span>
+
+                    <strong id="resumenCapital">
+                        S/ 0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="resumen-item">
+
+                    <span>🛒 Total de ventas</span>
+
+                    <strong id="resumenVentas">
+                        S/ 0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="resumen-item">
+
+                    <span>🏪 Gastos del negocio</span>
+
+                    <strong id="resumenGastosNegocio">
+                        S/ 0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="resumen-item">
+
+                    <span>🏠 Gastos de casa</span>
+
+                    <strong id="resumenGastosCasa">
+                        S/ 0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="resumen-item destacado">
+
+                    <span>💵 Dinero disponible</span>
+
+                    <strong id="resumenDisponible">
+                        S/ 0.00
+                    </strong>
+
+                </div>
+
+
+                <div class="resumen-item">
+
+                    <span>📈 Ganancia</span>
+
+                    <strong id="resumenGanancia">
+                        S/ 0.00
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <button
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+
+            <button
+                class="boton-peligro"
+                onclick="reiniciarAplicacion()"
+            >
+                🗑️ Reiniciar datos
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ========================= -->
+    <!-- HISTORIAL DE USUARIOS -->
+    <!-- ========================= -->
+
+    <section id="historial" class="pantalla">
+
+        <div class="header">
+
+            <h1>👥 Historial de usuarios</h1>
+
+            <p>
+                Personas que ingresaron a ControlCapital
+            </p>
+
+        </div>
+
+
+        <div class="contenido">
+
+            <div class="tarjeta">
+
+                <h3>📋 Ingresos registrados</h3>
+
+                <div id="listaHistorial" class="lista">
+
+                    <p class="vacio">
+                        Todavía no hay usuarios registrados.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <button
+                class="boton-secundario"
+                onclick="mostrarPantalla('menu')"
+            >
+                ← Volver al menú
+            </button>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
